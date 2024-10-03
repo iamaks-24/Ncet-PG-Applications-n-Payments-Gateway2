@@ -1,0 +1,150 @@
+{% extends 'base.html' %}
+
+{% block title %}Page1{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="{{url_for('static', filename='css/page1.css') }}">
+{% endblock %}
+{% block content %}
+<div id="contentContainer">
+<form id="myForm" action="{{ url_for('app_form.page1') }}" method="POST" oninput="checkForm()">
+    <div class="form-group">
+        <label for="application_number">Application No:</label>
+        <input type="text" id="application_number" name="application_number" class="form-control" value="{{ session['application_number'] }}" readonly>
+    </div>
+
+    <div class="form-group">
+        <label for="candidateName">Candidate's Name:<span class="required-star">*</span></label>
+        <input type="text" id="candidateName" name="candidateName" class="form-control"  required
+            title="Only letters and spaces are allowed for the candidate's name." 
+            oninput="validateCandidateName(this)">
+    </div>
+    
+    <script>
+        function validateCandidateName(input) {
+            input.value = input.value.replace(/[^A-Za-z\s]/g, '');
+        }
+    </script>
+    
+    
+
+    <h4>Checklist of Documents</h4>
+    <div class="form-group">
+        <label>
+            <input type="checkbox" name="documents" value="Photos" {% if 'Photos' in documents %}checked{% endif %}> 3 Passport and 3 Stamp size photos
+        </label><br>
+        <label>
+            <input type="checkbox" name="documents" value="Aadhar Card" {% if 'Aadhar Card' in documents %}checked{% endif %}> Copy of Aadhar card
+        </label><br>
+        <label>
+            <input type="checkbox" name="documents" value="Marks Cards" {% if 'Marks Cards' in documents %}checked{% endif %}> 10th/SSLC and 10+2/PUC marks cards
+        </label><br>
+        <label>
+            <input type="checkbox" name="documents" value="Diploma/Graduation" {% if 'Diploma/Graduation' in documents %}checked{% endif %}> Diploma/Graduation marks cards and Certificate
+        </label><br>
+        <label>
+            <input type="checkbox" name="documents" value="Entrance Test Score" {% if 'Entrance Test Score' in documents %}checked{% endif %}> Entrance test score card, if any
+        </label><br>
+        <label>
+            <input type="checkbox" name="documents" value="Work Experience" {% if 'Work Experience' in documents %}checked{% endif %}> Work Experience Letter, if any
+        </label><br>
+        <label>
+            <input type="checkbox" name="documents" value="Other" {% if 'Other' in documents %}checked{% endif %}> Any other Certificates, Specify:
+        </label><br>
+        <input type="text" class="form-control mb-2" name="other_documents" value="{{ other_documents }}"> <br>
+        <label>
+            <input type="checkbox" name="documents" value="Transfer Certificate" {% if 'Transfer Certificate' in documents %}checked{% endif %}> Transfer certificate
+        </label><br>
+        <label>
+            <input type="checkbox" name="documents" value="Migration Certificate" {% if 'Migration Certificate' in documents %}checked{% endif %}> Migration Certificate
+        </label><br>
+        <label>
+            <input type="checkbox" name="documents" value="Conduct/Study Certificate" {% if 'Conduct/Study Certificate' in documents %}checked{% endif %}> Conduct/Study Certificate
+        </label><br>
+        <label>
+            <input type="checkbox" name="documents" value="Caste Certificate" {% if 'Caste Certificate' in documents %}checked{% endif %}> Caste Certificate (if Applicable)
+        </label><br>
+        <label>
+            <input type="checkbox" name="documents" value="Income Certificate" {% if 'Income Certificate' in documents %}checked{% endif %}> Income Certificate (if Applicable)
+        </label><br>
+        <label>
+            <input type="checkbox" name="documents" value="Passport/Visa Copy" {% if 'Passport/Visa Copy' in documents %}checked{% endif %}> Passport/Visa Copy (if Applicable)
+        </label><br>
+        <label>
+            <input type="checkbox" name="documents" value="Rank/Score Card" {% if 'Rank/Score Card' in documents %}checked{% endif %}> Rank/Score Card (if Applicable)
+        </label><br>
+    </div>
+
+    <p class="info-message">All the above documents must be scanned and sent via email to <strong>documents@ndcmail.in</strong>.</p>
+
+    <!-- warning message -->
+    <p id="warningMessage" style="color:red; display:none;">Please fill in all required fields.</p>
+    
+    <div class="form-group">
+        <!-- <p id="warningMessage" style="color:red; display:none;">Please fill in all required fields.</p> -->
+        <button type="submit" name="save" id="submitButton" disabled onclick="checkButtonStatus(event)">Save and Proceed</button>
+    </div>
+</form>
+</div>
+
+
+<div id="confirmationPopup" style="display:none; position:fixed; top: 50%; transform: translate(50%,-50%); background:white; padding:20px; border:10px solid #ccc;">
+    <p>Once clicked on save, you won't be able to modify the details.Are you sure?</p>
+    <button onclick="closePopup()">Back</button>
+    <button onclick="saveAndProceed()">Save</button>
+</div>
+
+<div id="overlay" class="overlay" style="display:none;"></div>
+<script>
+    function checkForm() {
+        const nameField = document.getElementById("candidateName").value.trim();
+        const submitButton = document.getElementById("submitButton");
+        const warningMessage = document.getElementById("warningMessage");
+    
+        // Check if required fields are filled
+        if (nameField !== "") {
+            submitButton.disabled = false;
+            flash("Please enter the details in all the required fields.", "error")
+            warningMessage.style.display = "none"; // Hide warning if valid
+        } else {
+            submitButton.disabled = true;
+            warningMessage.style.display = "block"; // Hide warning while typing
+        }
+    }
+    
+    function checkButtonStatus(event) {
+        const submitButton = document.getElementById("submitButton");
+        const warningMessage = document.getElementById("warningMessage");
+    
+        // Show warning if button is disabled
+        if (submitButton.disabled) {
+            event.preventDefault(); // Prevent form submission
+            warningMessage.style.display = "block"; // Show warning
+        } else {
+            warningMessage.style.display = "none"; // Hide warning if enabled
+            showConfirmationPopup(event); // Proceed if enabled
+        }
+    }
+    
+    
+
+    function showConfirmationPopup(event){
+        event.preventDefault();
+        document.getElementById("confirmationPopup").style.display="block";
+        document.getElementById("overlay").style.display="block";
+        document.getElementById('contentContainer').classList.add('blur');
+    }
+
+    function closePopup(){
+        document.getElementById("confirmationPopup").style.display="none";
+        document.getElementById("overlay").style.display="none";
+        document.getElementById('contentContainer').classList.remove('blur');
+    }
+
+    function saveAndProceed(){
+        document.getElementById("myForm").submit();
+    }
+</script>
+
+{% endblock %}
+
+

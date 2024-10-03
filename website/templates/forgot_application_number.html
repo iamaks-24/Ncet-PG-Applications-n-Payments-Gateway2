@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}Signin{% endblock %}
+
+{% block content %}
+<h1>Application Number Generation | NCET-PG Applications Gateway</h1>
+<form action="{{ url_for('auth.forgot_application_number') }}" method="POST">
+    <h2>Know your {{program}} program application number!</h2>
+    <input type="hidden" name="program" value="{{program}}">
+    <label for="email">Enter your registered email to retrieve your application number:</label>
+    <input type="email" id="email" name="email" required>
+    
+    <button type="submit">Send OTP</button>
+</form>
+{% endblock %}

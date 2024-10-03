@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Flask Application{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+
+    <!-- <nav class="navbar">
+        <div class="navbar-links">
+        {% if 'user' in session %}
+            <a href="{{ url_for('auth.home') }}">Home</a>
+            <span>Welcome, {{ session['user'] }}!</span>
+            <a href="{{ url_for('auth.signout') }}">Signout</a>
+        {% else %}
+            <a href="{{ url_for('auth.signin') }}">Signin</a>
+            <a href="{{ url_for('auth.signup') }}">Signup</a>
+        {% endif %}
+    </div>
+    </nav> -->
+
+    {% if 'user' in session and session.get('signin') %}
+        <div class="progress-tracker">
+            <div class="page {% if session.get('progress') and session['progress']['page1'] %}completed{% elif request.path=='/page1' %}active{% endif %}" onclick="window.location.href='/page1' ">Page 1</div>
+            <div class="page {% if session.get('progress') and session['progress']['page2'] %}completed{% elif request.path=='/page2' %}active{% endif %}" onclick="window.location.href='/page2' ">Page 2</div>
+            <div class="page {% if session.get('progress') and session['progress']['page3'] %}completed{% elif request.path=='/page3' %}active{% endif %}" onclick="window.location.href='/page3' ">Page 3</div>
+            <div class="page {% if session.get('progress') and session['progress']['page4'] %}completed{% elif request.path=='/page4' %}active{% endif %}" onclick="window.location.href='/page4' ">Page 4</div>
+        </div>
+    {% endif %}
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <ul class="flashes">
+                {% for category, message in messages %}
+                    <li class="{{ category }}">
+                        {{ message }}
+                        <button class="close-btn" onclick="this.parentElement.style.display='none';">x</button>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+
+    <div class="container">
+        {% block content %}
+        {% endblock %}
+    </div>
+
+    <footer style="text-align: center;">
+        <p>&copy; 2024 Ncet PG Application</p>
+    </footer>
+</body>
+</html>

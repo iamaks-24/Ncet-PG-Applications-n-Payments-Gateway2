@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %}NCET-Programs{% endblock %}
+
+{% block content %}
+<h1>Choose your program</h1>
+<h2>design pending.....?</h2>
+<button type="button" onclick="redirectToSignUp('MBA')">MBA</button>
+<button type="button" onclick="redirectToSignUp('MCA')">MCA</button>
+
+<script>
+    function redirectToSignUp(program) {
+        //redirection to signuppage with selected program as a url parameter
+        window.location.href = '/signup/?program=' + program;
+    }
+</script>
+
+
+{% endblock %}

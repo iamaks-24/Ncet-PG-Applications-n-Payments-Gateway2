@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% block title %}Page2{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+{% endblock %}
+{% block content %}
+    <div>
+        <h2>Application Form Fee (Non-Refundable)</h2>
+            <ul>
+                <li>Indian: 500/-</li>
+                <li>NRI: 2000/-</li>
+                <li>Foreign National: USD 50</li>
+            </ul>
+        <!-- Fee Structure Section -->
+        <div class="alert alert-info">
+            <strong>Fee Structure:</strong>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Year-Wise Payment</th>
+                        <th>Amount (In Rs)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1st Year Booking Amount at the time of joining</td>
+                        <td>25,000</td>
+                    </tr>
+                    <tr>
+                        <td>Balance Semester Amount to be paid within 2 weeks of seat booking</td>
+                        <td>As per fee structure</td>
+                    </tr>
+                    <tr>
+                        <td>Second-semester fees to be paid before the beginning of the second semester</td>
+                        <td>As per fee structure</td>
+                    </tr>
+                    <tr>
+                        <td>Second year onwards, the full semester fee is to be paid before the commencement of every semester</td>
+                        <td>As per fee structure</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="container mt-5">
+            <h1 class="text-center">Terms & Conditions</h1>
+            
+            <!-- Terms & Conditions Section -->
+            <div class="alert alert-info">
+                <strong>Reporting, Refund and Cancellation Policy:</strong>
+                <ul>
+                    <li>Reporting must be done within 2 weeks of seat booking or else the seat automatically becomes eligible for direct cancellation.</li>
+                    <li>Any amount paid below Rs. 15,000 is non-refundable.</li>
+                    <li>Any amount paid above Rs. 15,000 will be refunded after deducting a cancellation charge of Rs. 15,000.</li>
+                    <li>Any Candidate who does not complete the reporting procedure within two weeks of seat booking, the seat automatically becomes eligible for direct cancellation.</li>
+                    <li>No refund will be provided if a candidate cancels the seat after reporting. Only documents will be handed over in such cases.</li>
+                    <li>Note: Admission is provisional and subject to approval of Bengaluru City University.</li>
+                    <li>Incomplete applications are liable to be rejected.</li>
+                </ul>
+            </div>
+        </div>
+
+        <form action="{{ url_for('app_form.page4') }}" method="POST">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+{% endblock %}

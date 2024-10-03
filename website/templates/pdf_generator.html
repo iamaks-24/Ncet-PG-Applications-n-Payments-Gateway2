@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block title %}Pdf generation{% endblock %}
+
+{% block content %}
+<h1>Welcome to PDF Generation</h1>
+<form action="/fetch_data" method="POST">
+    <label for="application_number">Application Number:</label>
+    <input type="text" id="application_number" name="application_number" required>
+    <button type="submit">Fetch Data</button>
+</form>
+{% endblock %}

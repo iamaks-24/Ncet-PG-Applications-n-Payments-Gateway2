@@ -1,0 +1,180 @@
+
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: rgb(0, 56, 139);
+    color: white;
+}
+
+.header-container img {
+    height: 50px; 
+}
+
+.header-container .logo,
+.header-container .upload-container {
+    flex: 1;
+}
+
+.header-container .title {
+    text-align: center;
+    flex: 2;
+}
+
+h2, h3 {
+    margin: 0;
+}
+
+h2 {
+    font-size: 1.5em;
+}
+
+h3 {
+    font-size: 1.2em;
+}
+
+form {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+label {
+    font-weight: bold;
+    display: inline-block;
+    width: 120px;
+}
+
+input[type="text"], input[type="tel"], input[type="date"], input[type="email"], input[type="number"], select {
+    width: 180px; /* Adjust size for inline grouping */
+    padding: 8px;
+    margin: 8px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+input[type="radio"] {
+    margin-right: 5px;
+}
+
+input[type="submit"] {
+    background-color: darkblue;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+input[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+.section-header {
+    background-color:  rgb(0, 56, 139);
+    color: white;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 4px;
+    text-align: center;
+}
+
+.form-group {
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.form-group label {
+    width: 150px;
+}
+
+.inline-group, .horizontal-group {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.inline-group div, .horizontal-group div {
+    display: flex;
+    align-items: center;
+    gap: 5px; 
+}
+
+.inline-group label, .horizontal-group label {
+    width: auto;
+}
+
+.inline-group input, .inline-group select, .horizontal-group input, .horizontal-group select {
+    flex: 1;
+    max-width: 250px;
+}
+
+.radio-group {
+    margin-top: 10px;
+}
+
+.category-group {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.upload-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.upload-container #imagePreview {
+    width: 100px;
+    height: 100px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #f2f2f2;
+    background-size: cover;
+    background-position: center;
+}
+
+.blur {
+    filter: blur(5px);
+    pointer-events: none; /* Disable interaction with blurred content */
+}
+
+/* Center the confirmation popup using flexbox */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Dimmed background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9998; /* Ensure overlay is below the popup but above the page content */
+}
+
+#confirmationPopup {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 9999; /* Ensure popup stays above blurred content */
+}
+
+button {
+    margin: 5px;
+}
+.required-star {
+    color: red;        /* Change text color to red */
+    font-weight: bold; /* Make font weight bold */
+}

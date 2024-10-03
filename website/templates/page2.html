@@ -1,0 +1,385 @@
+{% extends 'base.html' %}
+
+{% block title %}Page2{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="{{url_for('static', filename='css/page2.css') }}">
+{% endblock %}
+{% block content %}
+<div class="container" id="contentContainer">
+<div class="header-container">
+    <div class="logo">
+        <img src="Logo.jpg" alt="" style="width: 150px; height: auto;">
+    </div>
+    <div class="title">
+        <h2>Nagarjuna Degree College</h2>
+        <h3>School of Management</h3>
+    </div>
+    <div class="upload-container">
+        <div id="imagePreview" onclick="document.getElementById('fileInput').click();">
+            <span>Upload Your Picture Here</span>
+        </div>
+        <input type="file" id="fileInput" name="profile_picture" accept="image/*" style="display: none;" onchange="previewImage(event)">
+    </div>
+</div>
+
+<form id="myForm" action="{{url_for('app_form.page2')}}" method="POST" enctype="multipart/form-data">
+    <!-- Admission Type -->
+    <div class="form-group">
+        <label>Admission Type:<span class="required-star">*</span></label>
+        <div class="radio-group">
+            <input type="radio" name="admission_type" value="pgcet_quota" id="pgcet_quota" checked onclick="toggleDetails()"> PGCET QUOTA
+            <input type="radio" name="admission_type" value="management_quota" id="management_quota" onclick="toggleDetails()"> MANAGEMENT QUOTA
+        </div>
+    </div>
+    
+    <!-- PGCET No, Admission Order No, Rank (all in one line) -->
+    <div class="form-group inline-group" id="pgcet-details">
+        <div>
+            <label for="pgcet_no">PGCET No:<span class="required-star">*</span></label>
+            <input type="text" id="pgcet_no" name="pgcet_no">
+        </div>
+        <div>
+            <label for="admission_order_no">Admission Order No:<span class="required-star">*</span></label>
+            <input type="text" id="admission_order_no" name="admission_order_no">
+        </div>
+        <div>
+            <label for="rank">Rank:<span class="required-star">*</span></label>
+            <input type="text" id="rank" name="rank">
+        </div>
+    </div>
+    
+    <!-- Claimed Category, Allocated Category, Locality (all in one line) -->
+    <div class="form-group inline-group" id="category-details">
+        <div>
+            <label>Claimed Category:<span class="required-star">*</span></label>
+            <input type="text" name="claimed_category">
+        </div>
+        <div>
+            <label>Allocated Category:<span class="required-star">*</span></label>
+            <input type="text" name="allocated_category">
+        </div>
+        <div>
+            <label>Locality:<span class="required-star">*</span></label>
+            <div class="radio-group">
+                <input type="radio" name="locality" value="kar"> Kar
+                <input type="radio" name="locality" value="non-kar"> Non-Kar
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function toggleDetails() {
+            const managementQuotaSelected = document.getElementById('management_quota').checked;
+            const pgcetDetails = document.getElementById('pgcet-details');
+            const categoryDetails = document.getElementById('category-details');
+            
+            // Show or hide the details based on selected admission type
+            if (managementQuotaSelected) {
+                pgcetDetails.style.display = 'none';
+                categoryDetails.style.display = 'none'; // Hide category details
+            } else {
+                pgcetDetails.style.display = 'flex'; // or 'block' depending on your layout
+                categoryDetails.style.display = 'flex'; // or 'block'
+            }
+        }
+    
+        // Initial call to set the display based on default selection
+        toggleDetails();
+    </script>
+    
+
+    <!-- Personal Details -->
+    <div class="section-header">Personal Details (as per SSLC Certificate)</div>
+    <div class="form-group">
+        <label>Name:<span class="required-star">*</span></label>
+        <div class="inline-group">
+            <input type="text" name="first_name" placeholder="First Name">
+            <input type="text" name="middle_name" placeholder="Middle Name">
+            <input type="text" name="surname" placeholder="Surname">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Date of Birth:<span class="required-star">*</span></label>
+        <input type="date" name="dob">
+    </div>
+
+    <div class="form-group inline-group">
+        <div>
+            <label>Gender:<span class="required-star">*</span></label>
+            <div class="radio-group">
+                <input type="radio" name="gender" value="male"> Male
+                <input type="radio" name="gender" value="female"> Female
+                <input type="radio" name="gender" value="others"> Others
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group inline-group">
+        <div>
+            <label>Nationality:<span class="required-star">*</span></label>
+            <div class="radio-group">
+                <input type="radio" name="nationality" value="indian"> Indian
+                <input type="radio" name="nationality" value="nri"> NRI
+                <input type="radio" name="nationality" value="foreign"> Foreign Citizen
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Religion:<span class="required-star">*</span></label>
+        <input type="text" name="religion">
+    </div>
+
+    <div class="form-group">
+        <label>Blood Group:<span class="required-star">*</span></label>
+        <input type="text" name="blood_group">
+    </div>
+
+    <div class="form-group">
+        <label>Physically Challenged:<span class="required-star">*</span></label>
+        <div class="radio-group">
+            <input type="radio" name="physically_challenged" value="yes"> Yes
+            <input type="radio" name="physically_challenged" value="no"> No
+        </div>
+    </div>
+
+    <!-- Category -->
+    <div class="form-group">
+        <label>Category:<span class="required-star">*</span></label>
+        <div class="radio-group">
+            <input type="radio" name="category" value="general"> General
+            <input type="radio" name="category" value="obc"> OBC
+            <input type="radio" name="category" value="sc"> SC
+            <input type="radio" name="category" value="st"> ST
+            <input type="text" name="st_specify" placeholder="ST (Specify)">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Aadhaar Card No:<span class="required-star">*</span></label>
+        <input type="text" name="aadhaar_no">
+    </div>
+
+    <!-- Parent's Details -->
+    <div class="section-header">Parent's Details</div>
+    <div class="form-group horizontal-group">
+        <div>
+            <label>Father's Name:<span class="required-star">*</span></label>
+            <input type="text" name="father_name">
+        </div>
+        <div>
+            <label>Mother's Name:<span class="required-star">*</span></label>
+            <input type="text" name="mother_name">
+        </div>
+    </div>
+
+    <div class="form-group horizontal-group">
+        <div>
+            <label>Father's Occupation:<span class="required-star">*</span></label>
+            <input type="text" name="father_occupation">
+        </div>
+        <div>
+            <label>Mother's Occupation:<span class="required-star">*</span></label>
+            <input type="text" name="mother_occupation">
+        </div>
+    </div>
+
+    <div class="form-group horizontal-group">
+        <div>
+            <label>Father's Phone Number:<span class="required-star">*</span></label>
+            <input type="tel" name="father_phone">
+        </div>
+        <div>
+            <label>Mother's Phone Number:<span class="required-star">*</span></label>
+            <input type="tel" name="mother_phone">
+        </div>
+    </div>
+
+    <!-- Address for Correspondence -->
+    <div class="section-header">Address for Correspondence</div>
+    <div class="form-group inline-group">
+        <div>
+            <label>City:<span class="required-star">*</span></label>
+            <input type="text" name="correspondence_city">
+        </div>
+        <div>
+            <label>Pincode:<span class="required-star">*</span></label>
+            <input type="text" name="correspondence_pincode">
+        </div>
+    </div>
+
+    <div class="form-group inline-group">
+        <div>
+            <label>State:<span class="required-star">*</span></label>
+            <input type="text" name="correspondence_state">
+        </div>
+        <div>
+            <label>Country:<span class="required-star">*</span></label>
+            <input type="text" name="correspondence_country">
+        </div>
+    </div>
+
+    <div class="form-group inline-group">
+        <div>
+            <label>Contact No (Tel):</label>
+            <input type="tel" name="correspondence_tel" placeholder="Optional">
+        </div>
+        <div>
+            <label>Mobile:<span class="required-star">*</span></label>
+            <input type="tel" name="correspondence_mobile">
+        </div>
+    </div>
+
+<!-- Change correspondence fields to permanent fields -->
+<div class="section-header">Permanent Address</div>
+<div class="form-group inline-group">
+    <div>
+        <label>City:<span class="required-star">*</span></label>
+        <input type="text" name="permanent_city"> <!-- Change this -->
+    </div>
+    <div>
+        <label>Pincode:<span class="required-star">*</span></label>
+        <input type="text" name="permanent_pincode"> <!-- Change this -->
+    </div>
+</div>
+
+<div class="form-group inline-group">
+    <div>
+        <label>State:<span class="required-star">*</span></label>
+        <input type="text" name="permanent_state"> <!-- Change this -->
+    </div>
+    <div>
+        <label>Country:<span class="required-star">*</span></label>
+        <input type="text" name="permanent_country"> <!-- Change this -->
+    </div>
+</div>
+
+<div class="form-group inline-group">
+    <div>
+        <label>Contact No (Tel):<span class="required-star">*</span></label>
+        <input type="tel" name="permanent_tel" placeholder="Optional"> <!-- Change this -->
+    </div>
+    <div>
+        <label>Mobile:<span class="required-star">*</span></label>
+        <input type="tel" name="permanent_mobile"> <!-- Change this -->
+    </div>
+</div>
+
+
+    <!-- Additional Details -->
+    <div class="form-group">
+        <label>Preferred Contact Time:<span class="required-star">*</span></label>
+        <input type="text" name="preferred_contact_time">
+    </div>
+
+    <div class="form-group">
+        <label>Do you have a passport?</label>
+        <div class="radio-group">
+            <input type="radio" name="passport" value="yes" id="passport_yes" onclick="togglePassportFields()" required> Yes
+            <input type="radio" name="passport" value="no" id="passport_no" onclick="togglePassportFields()"> No
+        </div>
+    </div>
+    
+    <div class="form-group" id="passport_details" style="display: none;">
+        <label>Passport No:<span class="required-star">*</span></label>
+        <input type="text" name="passport_no" placeholder="Enter Passport No">
+    </div>
+    
+    <div class="form-group" id="passport_expiry_group" style="display: none;">
+        <label>Year of Expiry:<span class="required-star">*</span></label>
+        <input type="text" name="passport_expiry" placeholder="Enter Year of Expiry">
+    </div>
+    
+    <div class="form-group" id="passport_issued_on_group" style="display: none;">
+        <label>Issued on:<span class="required-star">*</span></label>
+        <input type="date" name="passport_issued_on">
+    </div>
+    
+    <div class="form-group">
+        <button type="submit" name="save" onclick="showConfirmationPopup(event)">Save and Proceed</button>
+    </div>
+</form>
+</div>
+<div id="confirmationPopup" style="display:none; position:fixed; top: 50%; transform: translate(50%,-50%); background:white; padding:20px; border:10px solid #ccc;">
+    <p>Once clicked on save, you won't be able to modify the details.Are you sure?</p>
+    <button onclick="closePopup()">Back</button>
+    <button onclick="saveAndProceed()">Save</button>
+</div>
+
+<div id="overlay" class="overlay" style="display:none;"></div>
+<script>
+function showConfirmationPopup(event){
+    event.preventDefault();
+    const overlay = document.querySelector('.overlay');
+    overlay.style.display = 'flex';
+    document.getElementById("confirmationPopup").style.display="block";
+    document.getElementById("overlay").style.display="block";
+    document.getElementById('contentContainer').classList.add('blur');
+}
+
+function closePopup(){
+    document.getElementById("confirmationPopup").style.display="none";
+    document.getElementById("overlay").style.display="none";
+    document.getElementById('contentContainer').classList.remove('blur');
+}
+
+function saveAndProceed(){
+    document.getElementById("myForm").submit();
+}
+</script>
+
+<script>
+        function previewImage(event) {
+            const file = event.target.files[0];
+            const imagePreview = document.getElementById('imagePreview');
+            const reader = new FileReader();
+
+            reader.onload = function(e) {
+                imagePreview.style.backgroundImage = `url(${e.target.result})`;
+                imagePreview.style.backgroundSize = 'cover';
+                imagePreview.style.backgroundPosition = 'center';
+                imagePreview.innerHTML = ''; // Clear the text
+            };
+            // reader.readAsDataURL(file);
+            if (file) {
+                reader.readAsDataURL(file);
+            }
+        }
+        
+        
+
+        function togglePassportFields() {
+        const passportYes = document.getElementById('passport_yes').checked;
+        const passportDetails = document.getElementById('passport_details');
+        const passportExpiryGroup = document.getElementById('passport_expiry_group');
+        const passportIssuedOnGroup = document.getElementById('passport_issued_on_group');
+
+        if (passportYes) {
+            passportDetails.style.display = 'block';
+            passportExpiryGroup.style.display = 'block';
+            passportIssuedOnGroup.style.display = 'block';
+
+            // Add required attributes to passport fields
+            document.querySelector('input[name="passport_no"]').setAttribute('required', 'required');
+            document.querySelector('input[name="passport_expiry"]').setAttribute('required', 'required');
+            document.querySelector('input[name="passport_issued_on"]').setAttribute('required', 'required');
+        } else {
+            passportDetails.style.display = 'none';
+            passportExpiryGroup.style.display = 'none';
+            passportIssuedOnGroup.style.display = 'none';
+
+            // Remove required attributes from passport fields
+            document.querySelector('input[name="passport_no"]').removeAttribute('required');
+            document.querySelector('input[name="passport_expiry"]').removeAttribute('required');
+            document.querySelector('input[name="passport_issued_on"]').removeAttribute('required');
+        }
+    }
+
+    document.querySelectorAll('input[name="work_experience"]').forEach(function(el) {
+        el.addEventListener('change', function() {
+            document.getElementById('work_experience_details').style.display = this.value === 'Yes' ? 'block' : 'none';
+        });
+    });
+</script>
+{% endblock %}

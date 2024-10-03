@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<h1>Email Verification</h1>
+<p>An OTP has been sent to {{ email }}. Please check your email and enter the OTP below to verify your email address.</p>
+<p>OTP will expire in 5 mins</p>
+<form action="{{ url_for('auth.verify_otp') }}" method="post">
+    <input type="hidden" name="program" value="{{program}}">
+    <h2>{{program}} program</h2>
+    <label for="otp">Enter OTP:</label>
+    <input type="text" id="otp" name="otp" required>
+    <button type="submit">Verify OTP</button>
+</form>
+<br/>
+<br/>
+<form action="{{ url_for('auth.resend_otp') }}" method="post">
+    <button type="submit">Resend OTP</button>
+</form>
+{% endblock %}

@@ -1,0 +1,237 @@
+{% extends 'base.html' %}
+{% block title %}page3{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="{{url_for('static',filename="css/page3.css")}}">
+{% endblock %}
+{% block content %}
+<h3>Education Qualifications</h3>
+<div id="contentContainer">
+    <form id="myForm" action="{{url_for('app_form.page3')}}" method="POST">
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Level</th>
+                    <th>Course</th>
+                    <th>Board/University/Institution</th>
+                    <th>College Name, City, State</th>
+                    <th colspan="2">Year</th>
+                    <th>Overall Percentage/Grade</th>
+                </tr>
+                <tr>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th>From</th>
+                    <th>To</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>10<sup>th</sup> Standard</td>
+                    <td><input type="text" name="course_10"></td>
+                    <td><input type="text" name="board_university_10"></td>
+                    <td><input type="text" name="college_name_10"></td>
+                    <td><input type="text" name="year_from_10" size="4"></td>
+                    <td><input type="text" name="year_to_10" size="4"></td>
+                    <td><input type="text" name="grade_10"></td>
+                </tr>
+                <tr>
+                    <td>12<sup>th</sup> Standard</td>
+                    <td><input type="text" name="course_12"></td>
+                    <td><input type="text" name="board_university_12"></td>
+                    <td><input type="text" name="college_name_12"></td>
+                    <td><input type="text" name="year_from_12" size="4"></td>
+                    <td><input type="text" name="year_to_12" size="4"></td>
+                    <td><input type="text" name="grade_12"></td>
+                </tr>
+                <tr>
+                    <td>Graduation</td>
+                    <td><input type="text" name="course_ug"></td>
+                    <td><input type="text" name="board_university_ug"></td>
+                    <td><input type="text" name="college_name_ug"></td>
+                    <td><input type="text" name="year_from_ug" size="4"></td>
+                    <td><input type="text" name="year_to_ug" size="4"></td>
+                    <td><input type="text" name="grade_ug"></td>
+                </tr>
+                <tr>
+                    <td>Post-Graduation</td>
+                    <td><input type="text" name="course_pg"></td>
+                    <td><input type="text" name="board_university_pg"></td>
+                    <td><input type="text" name="college_name_pg"></td>
+                    <td><input type="text" name="year_from_pg" size="4"></td>
+                    <td><input type="text" name="year_to_pg" size="4"></td>
+                    <td><input type="text" name="grade_pg"></td>
+                </tr>
+                <tr>
+                    <td>Others</td>
+                    <td><input type="text" name="course_ot"></td>
+                    <td><input type="text" name="board_university_ot"></td>
+                    <td><input type="text" name="college_name_ot"></td>
+                    <td><input type="text" name="year_from_ot" size="4"></td>
+                    <td><input type="text" name="year_to_ot" size="4"></td>
+                    <td><input type="text" name="grade_ot"></td>
+                </tr>
+            </tbody>
+        </table>
+        <br>
+        
+        <!-- New Fields -->
+        <div class="section">
+            <h3>Work Experience</h3>
+            <div class="inline-options">
+                <label for="work_experience_yes">
+                    <input type="radio" id="work_experience_yes" name="work_experience" value="Yes">
+                    Yes
+                </label>
+                <label for="work_experience_no">
+                    <input type="radio" id="work_experience_no" name="work_experience" value="No">
+                    No
+                </label>
+            </div>
+            <div id="work_experience_details" style="display:none;">
+                <label for="total_years">Total years of work experience:</label>
+                <input type="text" id="total_years" name="total_years">
+                <br>
+                <label for="work_from">From:</label>
+                <input type="text" id="work_from" name="work_from">
+                <label for="work_to">To:</label>
+                <input type="text" id="work_to" name="work_to">
+                <br>
+                <label for="organization">Organization's Name:</label>
+                <input type="text" id="organization" name="organization">
+                <br>
+                <label for="awards">Awards and Honors received:</label>
+                <textarea id="awards" name="awards"></textarea>
+                <br>
+                <label for="interests">Interests and Hobbies:</label>
+                <textarea id="interests" name="interests"></textarea>
+            </div>
+        </div>
+
+        <div class="section">
+            <h3>Finance Details</h3>
+            <label for="family_income">Family's consolidated annual income (p.a.):</label>
+            <select id="family_income" name="family_income">
+                <option value="<1,00,000">Less than 1,00,000</option>
+                <option value="1,00,000-3,00,000">1,00,000 - 3,00,000</option>
+                <option value="3,00,000-7,00,000">3,00,000 - 7,00,000</option>
+                <option value="7,00,000-10,00,000">7,00,000 - 10,00,000</option>
+                <option value=">10,00,000">More than 10,00,000</option>
+            </select>
+            <br>
+            <label for="finance_source">How would you finance studies at Nagarjuna Degree College?</label>
+            <div class="inline-options">
+                <label for="finance_family">
+                    <input type="checkbox" id="finance_family" name="finance_source" value="Family">
+                    Family
+                </label>
+                <label for="finance_employer">
+                    <input type="checkbox" id="finance_employer" name="finance_source" value="Employer">
+                    Employer
+                </label>
+                <label for="finance_loan">
+                    <input type="checkbox" id="finance_loan" name="finance_source" value="Loan">
+                    Loan
+                </label>
+                <label for="finance_other">
+                    <input type="checkbox" id="finance_other" name="finance_source" value="Other">
+                    Other
+                </label>
+            </div>
+        </div>
+
+        <div class="section">
+            <h3>Entrance Test Details</h3>
+            <label for="test_name">Please fill in the details if you have appeared for any of the following:</label>
+            <div class="inline-options">
+                <label for="pgcet">
+                    <input type="checkbox" id="pgcet" name="entrance_test" value="PGCET">
+                    PGCET
+                </label>
+                <label for="mat">
+                    <input type="checkbox" id="mat" name="entrance_test" value="MAT">
+                    MAT
+                </label>
+                <label for="cat">
+                    <input type="checkbox" id="cat" name="entrance_test" value="CAT">
+                    CAT
+                </label>
+                <label for="xat">
+                    <input type="checkbox" id="xat" name="entrance_test" value="XAT">
+                    XAT
+                </label>
+                <label for="gmat">
+                    <input type="checkbox" id="gmat" name="entrance_test" value="GMAT">
+                    GMAT
+                </label>
+                <label for="cmat">
+                    <input type="checkbox" id="cmat" name="entrance_test" value="CMAT">
+                    CMAT
+                </label>
+                <label for="other_tests">
+                    <input type="checkbox" id="other_tests" name="entrance_test" value="Other">
+                    Other (Please Specify)
+                </label>
+                <input type="text" id="other_tests_specify" name="other_tests_specify" class="specify-box">
+            </div>
+            <br>
+            <label for="test_score">Your Score Percentage/Percentile:</label>
+            <input type="text" id="test_score" name="test_score">
+            <br>
+            <label for="registration_no">Registration No:</label>
+            <input type="text" id="registration_no" name="registration_no">
+            <br>
+            <label for="exam_date">Date of Examination Taken:</label>
+            <input type="date" id="exam_date" name="exam_date">
+            <br>
+            <label for="no_exams">I have not appeared for any of the above mentioned examinations:</label>
+            <input type="checkbox" id="no_exams" name="no_exams">
+        </div>
+
+        <div class="section">
+        <button type="submit" name="save" onclick="showConfirmationPopup(event)">Save and Proceed</button>
+        </div>
+    </form>
+</div>
+<div id="confirmationPopup" style="display:none; position:fixed; top: 50%; transform: translate(50%,-50%); background:white; padding:20px; border:10px solid #ccc;">
+    <p>Once clicked on save, you won't be able to modify the details.Are you sure?</p>
+    <button onclick="closePopup()">Back</button>
+    <button onclick="saveAndProceed()">Save</button>
+</div>
+
+<div id="overlay" class="overlay" style="display:none;"></div>
+<script>
+function showConfirmationPopup(event){
+    event.preventDefault();
+    const overlay = document.querySelector('.overlay');
+    overlay.style.display = 'flex';
+    document.getElementById("confirmationPopup").style.display="block";
+    document.getElementById("overlay").style.display="block";
+    document.getElementById('contentContainer').classList.add('blur');
+}
+
+function closePopup(){
+    document.getElementById("confirmationPopup").style.display="none";
+    document.getElementById("overlay").style.display="none";
+    document.getElementById('contentContainer').classList.remove('blur');
+}
+
+function saveAndProceed(){
+    document.getElementById("myForm").submit();
+}
+</script>
+
+<script>
+    document.querySelectorAll('input[name="work_experience"]').forEach(function(el) {
+        el.addEventListener('change', function() {
+            document.getElementById('work_experience_details').style.display = this.value === 'Yes' ? 'block' : 'none';
+        });
+    });
+</script>
+{% endblock %}
+
+
+
+

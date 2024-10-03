@@ -1,0 +1,20 @@
+.custom-btn {
+    position: fixed;
+    right: 20px;
+    top: 20px;
+    background-color: #243665;
+    color: white;
+    border: 2px solid #FFD700; /* Gold border */
+    padding: 15px 30px;
+    font-size: 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 0 15px #FFD700;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.custom-btn:hover {
+    background-color: #FFD700; /* Gold on hover */
+    color: #243665; /* Text color changes to blue */
+    box-shadow: 0 0 20px #FFD700, 0 0 30px #FFD700, 0 0 40px #FFD700;
+}

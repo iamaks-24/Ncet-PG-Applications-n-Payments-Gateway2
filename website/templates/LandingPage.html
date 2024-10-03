@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block title %}ncet{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{url_for('static', filename='css/LandingPage.css') }}">
+{% endblock %}
+
+{% block content %}
+<a href="{{ url_for('programs.programs_list') }}" class="custom-btn">Secure your spot</a>
+<h3 style="text-align: center;">Landing page design</h3>
+{% endblock %}

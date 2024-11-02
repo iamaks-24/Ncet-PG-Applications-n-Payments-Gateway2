@@ -24,10 +24,12 @@ def create_app():
     from .auth import auth
     from .adminAuth import adminAuth
     from .programs import programs
+    from .admin_panel import admin_panel
 
     app.register_blueprint(app_form,url_prefix='/')
     app.register_blueprint(auth,url_prefix='/')
     app.register_blueprint(adminAuth,url_prefix='/')
     app.register_blueprint(programs,url_prefix='/')
+    app.register_blueprint(admin_panel,url_prefix='/')
 
     return app

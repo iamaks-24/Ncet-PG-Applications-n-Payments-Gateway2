@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block title %}MCA Dashboard{% endblock %}
+
+{% block content %}
+<h2>MCA Dashboard</h2>
+
+<!-- Search Form -->
+<form method="GET" action="{{ url_for('admin_panel.mca_dashboard') }}">
+    <input type="text" name="name" placeholder="Search by Name" value="{{ request.args.get('name', '') }}">
+    <input type="text" name="email" placeholder="Search by Email" value="{{ request.args.get('email', '') }}">
+    <button type="submit">Search</button>
+</form>
+
+<!-- Data Table -->
+<table>
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Application Number</th>
+            <th>Email Verified</th>
+            <th>PDF File</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for user in data %}
+        <tr>
+            <td>{{ loop.index }}</td>
+            <td>{{ user.name }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.application_number }}</td>
+            <td>{{ "Yes" if user.email_verified else "No" }}</td>
+            <td>
+                {% if user.pdf_file %}
+                <a href="{{ url_for('admin_panel.view_pdf', program_type='MCA', user_id=user['_id']) }}">View PDF</a>
+                {% else %}
+                No PDF
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

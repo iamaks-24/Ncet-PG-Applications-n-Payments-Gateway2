@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}Admin Dashboard{% endblock %}
+
+{% block content %}
+
+<div>
+    <h2>Total Statistics of Registrations</h2>
+    <p>MBA Registrations: {{mba_count}}</p>
+    <p>MCA Registrations: {{mca_count}}</p>
+</div>
+<button onclick="window.location.href='/mba_dashboard'">MBA Dashboard</button>
+<button onclick="window.location.href='/mca_dashboard'">MCA Dashboard</button>
+
+{% endblock %}

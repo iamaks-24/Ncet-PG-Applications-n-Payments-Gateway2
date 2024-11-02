@@ -1,74 +1,156 @@
+/* Global styles */
 body, html {
     margin: 0;
     padding: 0;
     height: 100%;
-    font-family: Arial, sans-serif;
+    font-family: 'Poppins', sans-serif;
+    background-color: #faf5ef;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-/* Container for the whole page */
 .signin-container {
     display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
     height: 100vh;
 }
 
-/* Left half for office sign-in */
-.left-half {
-    width: 50%;
-    background-color: #f2f2f2;
-    padding: 50px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+.form-box {
+    background-color: #e6dfd6;
+    padding: 40px;
+    width: 100%;
+    max-width: 400px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    text-align: center;
 }
 
-/* Right half for general user sign-in */
-.right-half {
-    width: 50%;
-    background: linear-gradient(to bottom right, #8A2BE2, #5F9EA0); /* Gradient background */
-    padding: 50px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    color: #ffffff;
+.flash-message {
+    background-color: #ffeeba;
+    border: 1px solid #ffe8a1;
+    padding: 10px; 
+    border-radius: 4px; 
+    margin-bottom: 15px; 
+    width: 60%; 
+    max-width: 350px; 
+    margin: 10px auto; 
 }
 
-.signin-container h2 {
-    margin-bottom: 20px;
+.flash-message h5 {
+    margin: 0;
+    font-size: 10px; 
+    color: #856404; 
+    font-weight: 600; 
+    text-align: center; 
 }
+
+
+
 
 .form-group {
-    margin-bottom: 15px;
-    width: 100%;
+    margin-bottom: 20px;
+    align-items: center;
+    /* padding-left: 2px; */
+    padding-right: 25px;
 }
 
-.form-group label {
-    display: block;
+label {
+    font-weight: 600;
+    /* font-size: 16px; */
+    color: #555;
     margin-bottom: 5px;
+    display: block;
 }
 
 .input-field {
     width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    padding: 12px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
 }
 
+.input-field:focus {
+    border-color: #ff5f5fea;
+    outline: none;
+    box-shadow: 0 0 5px rgba(255, 123, 95, 0.5); /* For a peachy tone */
+
+}
+
+/* Button Styles */
 .btn {
-    padding: 10px 20px;
-    border: none;
-    background-color: #4CAF50;
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(135deg, #c6533c 0%, #f1a7a1 100%); 
     color: white;
-    border-radius: 4px;
+    font-weight: 600;
+    border: none;
+    border-radius: 5px;
     cursor: pointer;
-    margin-top: 10px;
+    transition: background-color 0.3s ease;
+    font-size: 16px;
+    padding-left: 10px;
 }
 
 .btn:hover {
-    background-color: #45a049;
+    transform: translateY(-3px); /* Lift effect on hover */
+    background: linear-gradient(135deg, #f1a7a1, #c6533c); /* Reverse gradient on hover */
+}
+/* Links */
+.forgot-links a {
+    color: #0083b0;
+    text-decoration: none;
+    font-weight: 500;
+    display: inline-block;
+    margin-top: 10px;
+    transition: color 0.3s ease;
 }
 
-a {
-    color: #1e90ff;
+.forgot-links a:hover {
+    color: #00b4db;
+    text-decoration: underline;
+}
+
+/* Additional Styling: Bubbles in the background */
+.bubbles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('https://yourimageurl.com/bubbles.png') center/cover no-repeat;
+    opacity: 0.1;
+    z-index: 1;
+}
+
+.hidden {
+    display: none;
+}
+
+/* Animation for sliding effect */
+.signup-container,
+.signin-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    transition: transform 0.8s ease-in-out;
+    z-index: 2;
+}
+
+.signup-container.slide-left {
+    transform: translateX(-100%);
+}
+
+/* Styling for the h4 element */
+h4 {
+    font-size: 15px;
+    /* font-weight: 500; */
+    color: darkslategrey; /* Dark text color for readability */
+    text-align: center; /* Center the text */
 }

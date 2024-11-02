@@ -2,18 +2,58 @@
 
 {% block title %}NCET-Programs{% endblock %}
 
+{% block extra_css %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.5.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/programs_list.css') }}">
+<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+{% endblock %}
+
 {% block content %}
-<h1>Choose your program</h1>
-<h2>design pending.....?</h2>
-<button type="button" onclick="redirectToSignUp('MBA')">MBA</button>
-<button type="button" onclick="redirectToSignUp('MCA')">MCA</button>
+
+<!-- Scroll progress bar -->
+<div id="progress-bar">
+    <div id="progress"></div>
+</div>
+
+<!-- Parallax Section -->
+<div class="parallax-section">
+    <h1 class="parallax-title">Choose Your Program</h1>
+</div>
+
+<!-- Program Descriptions -->
+<div class="card-container">
+    <div class="program-card">
+        <h2 class="program-title"><strong>Master of Business Administration (MBA)</strong></h2>
+        <p class="program-description">The MBA program prepares students for leadership positions across various industries, emphasizing analytical and strategic thinking. Students engage in core subjects such as finance, marketing, and operations, complemented by practical applications.</p><br>
+        <button class="custom-btn" onclick="redirectToSignUp('MBA')">Enroll Now</button>
+    </div>
+
+    <div class="program-card">
+        <h2 class="program-title"><strong>Master of Computer Applications (MCA)</strong></h2>
+        <p class="program-description">The MCA program provides an in-depth exploration of computer science, covering software development, networking, and web technologies. Students gain hands-on experience to enhance their programming and system analysis skills.</p><br>
+        <button class="custom-btn" onclick="redirectToSignUp('MCA')">Enroll Now</button>
+    </div>
+</div>
+
+
 
 <script>
     function redirectToSignUp(program) {
-        //redirection to signuppage with selected program as a url parameter
         window.location.href = '/signup/?program=' + program;
     }
-</script>
 
+    // Scroll progress bar
+    window.onscroll = function() {
+        var docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        var scrollPos = document.documentElement.scrollTop;
+        var progress = (scrollPos / docHeight) * 100;
+        document.getElementById("progress").style.width = progress + "%";
+    };
+
+
+    // Animate on scroll initialization
+    AOS.init();
+</script>
 
 {% endblock %}

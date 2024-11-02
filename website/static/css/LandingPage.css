@@ -1,20 +1,636 @@
+/* General Styling */
+* {
+    /* background-color: #faf5ef;; */
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* body {
+    margin: 0;
+    background-color: #f0f0f0; 
+} */
+
+body {
+    padding-top: 80px; /* Adjust this based on your navbar's height */
+    background-color: #faf5ef;
+    width: 100%;
+    margin: 0;
+    overflow-x: hidden; /* Prevent horizontal scroll */
+}
+
+/* Navbar Styling */
+.navbar {
+    position: fixed; /* Keeps the navbar at the top */
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px 10%; /* Adjust as needed */
+    background-color: #e6dfd6; /* Background color of the navbar */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    display: flex; /* Flexbox layout */
+    justify-content: space-between; /* Space between logo and buttons */
+    align-items: center; /* Center items vertically */
+    z-index: 100; /* Ensure it's above other content */
+}
+
+.navbar.scrolled {
+    background-color: #faf5ef; /* Background color when scrolled */
+}
+
+.container{
+    width: 100%;
+    max-width: 100%; /* Full width for the entire container */
+    margin: 0;
+    padding: 0;
+}
+
+.main-container {
+    width: 100%;
+    max-width: 100%; /* Ensure full width */
+    margin: 0 auto;
+    padding: 0; /* Remove side padding */
+}
+
+/* Logo */
+#logo img {
+    height: 60px; /* Adjust logo height */
+}
+
+
+#custom-btn {
+    text-align: center;
+    margin-top: 20px;
+}
+
 .custom-btn {
-    position: fixed;
-    right: 20px;
-    top: 20px;
-    background-color: #243665;
-    color: white;
-    border: 2px solid #FFD700; /* Gold border */
+    display: inline-block;
     padding: 15px 30px;
-    font-size: 16px;
-    border-radius: 8px;
-    cursor: pointer;
-    box-shadow: 0 0 15px #FFD700;
-    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+    /* background: linear-gradient(45deg, #ff6f61, #ff9966, #fbc531);*/
+    background: linear-gradient(135deg, #800000, #b22222);
+    border: none;
+    border-radius: 30px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.559);
+    transition: all 0.3s ease-in-out;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
 }
 
 .custom-btn:hover {
-    background-color: #FFD700; /* Gold on hover */
-    color: #243665; /* Text color changes to blue */
-    box-shadow: 0 0 20px #FFD700, 0 0 30px #FFD700, 0 0 40px #FFD700;
+    background: linear-gradient(135deg, #b22222, #800000);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    transform: scale(1.05);
+    color: white;
+}
+
+.custom-btn:active {
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+    transform: scale(1);
+}
+
+
+/* Hero Section */
+.home {
+    margin: 0;
+    position: relative;
+    width: 100%;
+    height: 90vh; /* Full viewport height */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #e6dfd6; /* Background of the hero section */
+    padding: 70px 10% 0; /* Padding for hero content */
+    overflow: hidden; /* Prevent overflow from wave animation */
+    padding-bottom: 0; /* Remove bottom padding */
+}
+
+/* Wavy Background */
+.wavy-bg {
+    position: absolute; /* Positioning to cover the hero section */
+    bottom: 0; /* Align the wave to the bottom */
+    left: 0;
+    width: 100%;
+    height: auto; /* Adjust height automatically */
+    z-index: 0; /* Behind the hero content */
+    overflow: hidden;
+}
+
+.wavy-bg svg {
+    display: block;
+    width: 100%; /* Full width */
+    height: auto; /* Maintain aspect ratio */
+    /* Removed translateY to avoid pushing the wave down */
+    animation: waveFloat 10s ease-in-out infinite;
+}
+
+/* Optional Keyframe Animation */
+@keyframes waveFloat {
+    0%, 100% {
+        transform: translateX(0);
+    }
+    50% {
+        transform: translateX(-20px); /* Subtle floating effect */
+    }
+}
+
+
+
+/* Home Content */
+.home-content {
+    position: relative;
+    z-index: 2; /* Keep content above background */
+    margin-top: -20px;
+}
+
+.home-content h1 {
+    font-family: 'Playfair Display', serif;
+    /* font-family: 'Roboto', sans-serif; */
+    font-size: 32px;
+    font-weight: 700;
+    color: rgb(7, 53, 88);
+    opacity: 0;
+    animation: slideBottom 1s ease forwards;
+    animation-delay: .5s;
+    margin-top: -10px;
+}
+
+.home-content p {
+    font-size: 18px;
+    color: rgb(7, 53, 88);
+    margin-bottom: 2px;
+    margin-top: -5px; 
+}
+.typewriter {
+    display: inline-block;
+    overflow: hidden; /* Ensures text is hidden initially */
+    white-space: nowrap; /* Prevents wrapping to the next line */
+    border-right: 2px solid; /* Creates the blinking cursor effect */
+    animation: typing 5s steps(50, end), blink-caret 0.75s step-end infinite; /* Typing effect */
+}
+
+@keyframes typing {
+    from { width: 0; } /* Start typing from 0 width */
+    to { width: 100%; } /* End typing with full width */
+}
+
+@keyframes blink-caret {
+    from, to { border-color: transparent; } /* Caret is hidden */
+    50% { border-color: black; } /* Caret blinks */
+}
+
+
+/* Social Icons */
+.home-content a {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    background: transparent;
+    border: 2px solid paleturquoise;
+    border-radius: 50%;
+    font-size: 20px;
+    color: black;
+    text-decoration: none;
+    margin: 30px 15px 30px 0;
+    transition: .5s ease;
+    opacity: 0;
+    animation: slideLeft 1s ease forwards;
+    animation-delay: calc(.2s * var(--1));
+}
+
+.home-content a:hover {
+    background: black;
+    color: azure;
+    box-shadow: 0 0 20px black;
+}
+
+/* Start Application Button */
+.home-sci a {
+    display: inline-block;
+    padding: 15px 20px; /* Adjust padding for a larger button */
+    /* background: linear-gradient(135deg, #ff6a00, #ee0979); Gradient background */
+    background: linear-gradient(135deg, #800000, #b22222); /* Reverse gradient on hover */
+    color: white;
+    font-size: 1em; /* Adjust font size */
+    font-weight: bold;
+    border-radius: 30px; /* Rounded corners */
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Shadow for depth */
+    position: relative;
+    overflow: hidden; /* Hide overflow for pseudo-element */
+    white-space: nowrap;
+    margin-top: 20px; /* Adjust margin */
+    text-align: center;
+    width: auto;
+    box-sizing: border-box;
+    opacity: 0; /* Initially hidden for animation */
+    animation: slideRight 1s ease forwards; /* Animation on load */
+    animation-delay: 0.5s; /* Delay for animation */
+    line-height: 0.5; /* Adjust line-height to move text up */
+    padding-bottom: 15px;
+    
+}
+
+/* Hover Effects */
+.home-sci a:hover {
+    background: linear-gradient(135deg, #b22222, #800000); /* Reverse gradient on hover */
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3); /* Stronger shadow */
+    transform: translateY(-5px); /* Lift effect on hover */
+}
+
+/* Glow on Focus */
+.home-sci a:focus {
+    outline: none; /* Remove default outline */
+    box-shadow: 0 0 15px rgba(255, 105, 180, 0.7); /* Glow effect on focus */
+}
+
+/* Slide Animation */
+@keyframes slideRight {
+    0% {
+        transform: translateX(-20px); /* Start from left */
+        opacity: 0; /* Invisible */
+    }
+    100% {
+        transform: translateX(0); /* End at original position */
+        opacity: 1; /* Fully visible */
+    }
+}
+
+
+/* Irregular Image Shape */
+.irregular-image-container {
+    position: relative;
+    top: -70px; /* Move it upwards */
+    right: -80px; /* Move it to the right */
+    width: 250px; /* Adjusted width for a slightly smaller image */
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: radial-gradient(circle, #ffcc33, #ffb347, #ff5733);
+    border-radius: 50%;
+    padding: 10px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.irregular-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    clip-path: ellipse(75% 65% at 50% 50%);
+    position: absolute;
+}
+
+.circle-decoration {
+    position: absolute;
+    border-radius: 50%;
+    background-color: rgba(255, 87, 51, 0.5);
+    width: 100px;
+    height: 100px;
+    top: -30px;
+    left: 20px;
+    animation: moveCircle 3s infinite alternate ease-in-out;
+}
+
+.circle-decoration.small {
+    width: 50px;
+    height: 50px;
+    bottom: 30px;
+    right: 20px;
+    background-color: rgba(255, 255, 153, 0.6);
+}
+
+.circle-decoration::before {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    background-color: rgba(255, 87, 51, 0.2);
+    width: 150px;
+    height: 150px;
+    top: -25px;
+    left: -25px;
+    z-index: -1;
+}
+
+.irregular-image-container {
+    opacity: 0;
+    animation: fadeIn 1s ease forwards;
+    animation-delay: 0.5s;
+}
+
+.irregular-image-container:hover .irregular-image {
+    transform: scale(1.1);
+    transition: transform 0.5s ease;
+}
+
+
+@keyframes moveCircle {
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(15px);
+    }
+}
+
+
+/* New Keyframes for Additional Bubbles */
+@keyframes moveCircle5 {
+    0% {
+        top: -50px; /* Start above the viewport */
+        left: 10%; /* Adjust left position */
+    }
+    100% {
+        top: 20px; /* Position near the image */
+    }
+}
+
+@keyframes moveCircle6 {
+    0% {
+        top: -70px; /* Start higher above the viewport */
+        left: 50%; /* Adjust left position */
+    }
+    100% {
+        top: 30px; /* Position near the image */
+    }
+}
+
+
+/* Floating Wave Animation */
+@keyframes waveFloat {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(20px); } /* Move wave up 20px */
+    100% { transform: translateY(0); }
+}
+
+.wavy-bg path {
+    animation: waveFloat 10s ease-in-out infinite;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Fade-in Animation */
+.fade-in {
+    opacity: 0; /* Initial opacity */
+    animation: fadeIn 1s ease forwards; /* Apply fadeIn animation */
+    animation-delay: 0.5s; /* Optional delay before starting the animation */
+}
+
+
+
+@keyframes slideBottom {
+    0% {
+        opacity: 0;
+        transform: translateY(-100px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0px);
+    }
+}
+
+@keyframes slideLeft {
+    0% {
+        opacity: 0;
+        transform: translateX(100px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0px);
+    }
+}
+
+@keyframes slideRight {
+    0% {
+        opacity: 0;
+        transform: translateX(-100px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0px);
+    }
+}
+
+.sidebar {
+    position: fixed; /* Fixed position */
+    right: 1px; /* Right side of the page */
+    top: 50%; /* Center vertically */
+    transform: translateY(-50%); /* Adjust for centering */
+    background-color: rgba(255, 255, 255, 0.8); /* Light background */
+    border-radius: 8px; /* Rounded corners */
+    padding: 10px; /* Padding inside the box */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Shadow for depth */
+    display: flex; /* Flexbox for alignment */
+    flex-direction: column; /* Stack icons vertically */
+    align-items: center; /* Center icons */
+}
+
+.sidebar a {
+    color: #333; /* Icon color */
+    font-size: 24px; /* Size of the icons */
+    margin: 10px 0; /* Space between icons */
+    transition: transform 0.3s ease; /* Animation for hover */
+}
+
+.sidebar a:hover {
+    transform: scale(1.2); /* Enlarge icon on hover */
+}
+.container-1 {
+    padding-bottom: 0 !important; /* Remove any bottom padding */
+    margin-bottom: 0 !important;  /* Remove any bottom margin */
+}
+
+
+.card {
+    position: relative;
+    width: 100%;  /* Make sure the card takes up full width of its column */
+    max-width: 440px;  /* Restrict the maximum width of the card to 440px */
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    margin: 0 auto;  /* Center the card */
+    margin-bottom: 0 !important;
+}
+
+.card-image {
+    position: relative;
+    height: 180px; /* Reduced height for smaller cards */
+    background-size: cover;
+    background-position: center;
+}
+
+.card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensures the image covers the entire card */
+    border-radius: 10px;
+}
+
+.overlay {
+    position: absolute;
+    bottom: 15px;
+    left: 15px;
+    color: white;
+    display: flex;
+    justify-content: flex-start; /* Aligns content to the left */
+    align-items: center; /* Centers content vertically */
+}
+
+
+.overlay button {
+    background-color: #ffa500;
+    border: none;
+    padding: 5px 10px;
+    font-size: 0.75em;  /* Smaller button size */
+    color: white;
+    border-radius: 20px;
+}
+
+.collapse {
+    background-color: #f8f8f8;
+    padding: 15px;  /* Slightly reduced padding */
+    border-top: 1px solid #ddd;
+}
+
+
+.card-content ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.card-content ul li {
+    margin-bottom: 5px;
+    font-size: 0.9em; 
+}
+
+#discover-ndc {
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+/* Ensure no space at the top of the #info-section */
+#info-section {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+}
+#discover-ndc h2, #info-section h2 {
+    margin: 0 !important;
+}
+#info-section .container {
+    background-color: #faf5ef;;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 50px 20px;
+    min-height: 100vh; /* Ensures the container covers the full viewport height */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Vertically centers content */
+}
+
+#info-section .heading-container {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+#info-section h2 {
+    font-size: 2.5rem;
+    color: #2c3e50; /* Adjust color as needed */
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+
+#info-section .info-boxes {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px; /* Adjust the gap between the boxes */
+    /* flex-wrap: wrap; */
+}
+
+#info-section .info-box {
+    display: flex;
+    align-items: center; /* Center align items vertically */
+    padding: 20px; /* Padding around the info box */
+    margin-bottom: 20px; /* Margin between info boxes */
+    gap: 20px; /* Adds space between the icon and the content */
+}
+
+#info-section .icon {
+    flex-shrink: 0; /* Prevent the icon from shrinking */
+    display: flex; /* Keep flex for the icon */
+    align-items: center;
+    margin-top: -170px; /* Adjust the vertical alignment of the icon */
+}
+
+#info-section .icon img {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+}
+
+#info-section .content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Center content vertically */
+    text-align: left; /* Align text to the left */
+}
+
+#info-section h3 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #2c3e50;
+    margin: 0; /* Remove margin to prevent spacing issues */
+}
+
+#info-section ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+#info-section ul li {
+    font-size: 1rem;
+    color: #7f8c8d;
+    margin-bottom: 8px;
+    position: relative;
+    padding-left: 20px;
+}
+
+#info-section ul li::before {
+    content: '\2022'; /* Unicode for a bullet point */
+    color: #e74c3c; /* Bullet point color */
+    font-weight: bold;
+    display: inline-block;
+    width: 1em;
+    margin-left: -1em;
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+    #info-section .info-box {
+        flex-direction: column; /* Stack vertically on smaller screens */
+        text-align: center;
+    }
+
+    #info-section .icon img {
+        margin-bottom: 10px;
+    }
 }

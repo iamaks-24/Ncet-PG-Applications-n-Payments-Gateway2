@@ -1,12 +1,265 @@
+
 {% extends 'base.html' %}
 
 {% block title %}ncet{% endblock %}
 
 {% block extra_css %}
-<link rel="stylesheet" href="{{url_for('static', filename='css/LandingPage.css') }}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.5.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/LandingPage.css') }}">
+<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 {% endblock %}
 
 {% block content %}
-<a href="{{ url_for('programs.programs_list') }}" class="custom-btn">Secure your spot</a>
-<h3 style="text-align: center;">Landing page design</h3>
+    <!-- Header Section with Logo and Signin/Signup -->
+    <!-- Header Section with Logo and Signin/Signup -->
+    <header id="header" class="navbar">
+        <div id="logo">
+            <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo">
+        </div>
+        <div id="custom-btn">
+            <a href="{{ url_for('programs.programs_list') }}" class="custom-btn">Secure your spot</a>
+        </div>
+
+
+    </header>
+    <script>
+        const navbar = document.getElementById('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 0) { 
+                navbar.classList.add('scrolled'); 
+            } else {
+                navbar.classList.remove('scrolled'); 
+            }
+        });
+    </script>
+    
+
+
+    <!-- Home Section with Text and Image -->
+    <div class="home">
+        <div class="wavy-bg">     
+            <svg viewBox="0 0 1440 290"><path fill="#d0c9bd" fill-opacity="1"  d="M0,128L21.8,128C43.6,128,87,128,131,122.7C174.5,117,218,107,262,112C305.5,117,349,139,393,154.7C436.4,171,480,181,524,192C567.3,203,611,213,655,208C698.2,203,742,181,785,149.3C829.1,117,873,75,916,74.7C960,75,1004,117,1047,144C1090.9,171,1135,181,1178,186.7C1221.8,192,1265,192,1309,176C1352.7,160,1396,128,1418,112L1440,96L1440,320L1418.2,320C1396.4,320,1353,320,1309,320C1265.5,320,1222,320,1178,320C1134.5,320,1091,320,1047,320C1003.6,320,960,320,916,320C872.7,320,829,320,785,320C741.8,320,698,320,655,320C610.9,320,567,320,524,320C480,320,436,320,393,320C349.1,320,305,320,262,320C218.2,320,175,320,131,320C87.3,320,44,320,22,320L0,320Z"></path>
+            </svg></svg>      
+        </div>
+    
+        <div class="home-content">
+            <h1 class="slideBottom">Welcome to NCET PG Application Portal</h1>
+            <p class="fade-in">Join our prestigious postgraduate programs and unlock a world of <br>opportunities. With cutting-edge facilities, world-class faculty, and <br>tailored industry-relevant courses.<br> <strong class="typewriter">NDC is the right place for your higher education journey.</strong></p>
+            
+            <div class="home-sci">
+                <a href="{{ url_for('programs.programs_list') }}" class="btn btn-primary btn-lg mt-3">Start Application</a>
+            </div>
+        </div>
+    
+        <div class="irregular-image-container">
+            <img src="{{ url_for('static', filename='css/piic.jpg') }}" alt=" " class="irregular-image">
+        </div>
+    </div>
+
+    <!-- Discover NDC Section -->
+    <section id="discover-ndc" class="py-5 text-center" style="padding-bottom: 0; margin-bottom: 0;">
+        <div class="container-1">
+            <h2 class="mb-5">Discover NDC</h2>
+            <br>
+            <br>
+            <br>
+
+            <div class="row">
+                <!-- First Card -->
+                <div class="col-md-6 mb-4">
+                    <div class="card">
+                        <div class="card-image">
+                            <img src="{{ url_for('static', filename='images/card1.jpg') }}" alt="K S Hegde Medical Academy">
+                            <div class="overlay">
+                                <!-- <h3>K S Hegde Medical Academy</h3> -->
+                                <button class="btn btn-primary" data-toggle="collapse" data-target="#programmes1" aria-expanded="false" aria-controls="programmes1">
+                                    Read More
+                                </button>
+                            </div>
+                        </div>
+                        <div class="collapse" id="programmes1">
+                            <div class="card-content">
+                                <!-- <h4>UG</h4> -->
+                                <ul>
+                                    <li>MBBS</li>
+                                    <li>BSc Anaesthesia & OT Technology</li>
+                                    <li>BSc Medical Imaging Technology</li>
+                                    <li>BSc Medical Laboratory Technology</li>
+                                    <li>BSc Radiation Therapy Technology</li>
+                                    <li>BSc Renal Dialysis Technology</li>
+                                    <li>BSc Respiratory Therapy</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <h6>UG Programmes</h6>
+                </div>
+
+                <!-- Second Card -->
+                <div class="col-md-6 mb-4">
+                    <div class="card">
+                        <div class="card-image">
+                            <img src="{{ url_for('static', filename='images/card2.jpg') }}" alt="Nitte University">
+                            <div class="overlay">
+                                <!-- <h3>Nitte University</h3> -->
+                                <button class="btn btn-primary" data-toggle="collapse" data-target="#programmes2" aria-expanded="false" aria-controls="programmes2">
+                                    Read More
+                                </button>
+                            </div>
+                        </div>
+                        <div class="collapse" id="programmes2">
+                            <div class="card-content">
+                                <!-- <h4>PG</h4> -->
+                                <ul>
+                                    <li>MSc Nursing</li>
+                                    <li>MSc Medical Imaging Technology</li>
+                                    <li>MSc Medical Laboratory Technology</li>
+                                    <li>MSc Respiratory Therapy</li>
+                                    <li>MSc Cardiac Perfusion Technology</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <h6>PG Programmes</h6>
+                </div>
+                
+            </div>
+           
+        </div>
+      
+    </section>
+
+    <!-- jQuery and Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        document.querySelectorAll('[data-toggle="collapse"]').forEach(button => {
+            button.addEventListener('click', function() {
+                const target = document.querySelector(this.getAttribute('data-target'));
+                const isExpanded = target.classList.contains('show');
+                this.textContent = isExpanded ? 'Read More' : 'Show Less';
+            });
+        });
+    </script>
+
+    <section id="info-section" class="py-5 bg-white text-center">
+        <div class="container">
+            <!-- Heading Container - Separate from Info Boxes -->
+            <div class="heading-container">
+                <h2 class="mb-5">Explore Our Resources</h2>
+            </div>
+
+            <div class="info-boxes">
+                <!-- Interaction and Networking Section -->
+                <div class="info-box">
+                    <div class="icon">
+                        <img src="{{ url_for('static', filename='images/er1.png') }}" alt="Interaction">
+                    </div>
+                    <div class="content">
+                        <h3>Interaction and Networking with</h3>
+                        <ul>
+                            <li>CA & Entrepreneurs</li>
+                            <li>Policy Makers</li>
+                            <li>Behavioural Experts</li>
+                            <li>International University Professors</li>
+                        </ul>
+                    </div>
+                </div>
+            
+                <!-- Techno Commerce Section -->
+                <div class="info-box">
+                    <div class="icon">
+                        <img src="{{ url_for('static', filename='images/techno-icon.png') }}" alt="Techno Commerce">
+                    </div>
+                    <div class="content">
+                        <h3>Shaping Future Tech Professionals</h3>
+                        <ul>
+                            <li>Advanced Excel and Tally</li>
+                            <li>Fintech Courses</li>
+                            <li>Business Simulation for Entrepreneurship and Capital Market</li>
+                            <!-- <li>Crypto and Blockchain Technologies</li> -->
+                        </ul>
+                    </div>
+                </div>
+            
+                <!-- Career Guidance Section -->
+                <div class="info-box">
+                    <div class="icon">
+                        <img src="{{ url_for('static', filename='images/career-icon.png') }}" alt="Career Guidance">
+                    </div>
+                    <div class="content">
+                        <h3>Career Guidance and Placement Assistance</h3>
+                        <ul>
+                            <li>CV Building Assistance</li>
+                            <li>Mentoring</li>
+                            <li>Training to Enhance Apti and Interview Skills</li>
+                            <li>Alumni Connect</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </section>
+
+
+
+        
+    
+        <!-- Features Section -->
+        <section id="features-section" class="py-5 text-center">
+            <div class="container">
+                <h2 class="mb-5">Why Choose NCET?</h2>
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="feature-box">
+                            <i class="fas fa-graduation-cap fa-3x mb-3"></i>
+                            <h3>World-Class Education</h3>
+                            <p>NCET offers highly recognized postgraduate programs with world-class faculty and cutting-edge facilities.</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="feature-box">
+                            <i class="fas fa-laptop-code fa-3x mb-3"></i>
+                            <h3>Industry-Relevant Curriculum</h3>
+                            <p>Our curriculum is tailored to meet industry needs and provides practical skills for your future career.</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="feature-box">
+                            <i class="fas fa-briefcase fa-3x mb-3"></i>
+                            <h3>Placement Assistance</h3>
+                            <p>Receive comprehensive placement support and access to top recruiters across multiple industries.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+
+    <!-- Sidebar with social icons -->
+    <div class="sidebar">
+        <a href="https://www.instagram.com" target="_blank"><i class='bx bxl-instagram'></i></a>
+        <a href="https://www.whatsapp.com" target="_blank"><i class='bx bxl-whatsapp'></i></a>
+        <a href="https://www.linkedin.com" target="_blank"><i class='bx bxl-linkedin'></i></a>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const elements = document.querySelectorAll('.fade-in');
+            elements.forEach((element) => {
+                element.classList.add('fade-in');
+            });
+        });
+    </script>
+
+
+    
+
+
 {% endblock %}

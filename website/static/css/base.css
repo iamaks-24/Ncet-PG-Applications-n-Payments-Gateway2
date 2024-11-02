@@ -86,13 +86,16 @@
 footer {
     background-color: #333;
     color: #fff;
-    padding: 15px;
+    padding: 2px 15px;
     text-align: center;
-    width: 100%;
+    width: 100%; /* Ensures the footer spans the entire page width */
+    flex-shrink: 0; /* Prevents the footer from shrinking */
     box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.1);
-    
+    margin: 0;
+    position: relative;
+    bottom: 0;
+    left: 0;
 }
-
 /* progress tracker styles */
 .progress-tracker {
     display: flex;

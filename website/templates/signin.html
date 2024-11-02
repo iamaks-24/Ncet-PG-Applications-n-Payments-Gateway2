@@ -8,55 +8,51 @@
 
 {% block content %}
 <div class="signin-container">
+    <div class="form-box">
     <!-- left half -->
-    <div class="left-half">
-        <h2>Thank you for registering for {{program}} program</h2>
-        <h2>Design for {{program}} program </h2>
-        <h2>...........?</h2>
+    <div class="flash-message">
+        <h5>Thank you for registering for the {{program}} program</h5>
+        <!-- <h5>Design your application for the {{program}} program</h5> -->
     </div>
+    <form action="{{ url_for('auth.signin') }}" method="POST">
+        <input type="hidden" name="program" value="{{program}}">
 
-    <!-- Right Half: Student login -->
-    <div class="right-half">
-        <h2>Login with ur generated application number and submit ur application for {{program}} program</h2>
-        <form action="{{ url_for('auth.signin') }}" method="POST">
-            <input type="hidden" name="program" value="{{program}}">
-            <div class="form-group">
-                <label for="application_number">Application Number</label>
-                <input type="text" id="application_number" name="application_number" class="input-field" required>
-            </div>
+        <h4>Login with your application number and password to submit your application for the {{program}} program.</h4>
+        <div class="form-group">
+            <label for="application_number">Application Number</label>
+            <input type="text" id="application_number" name="application_number" class="input-field" required>
+        </div>
 
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" id="password" name="password" class="input-field" required>
-            </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" class="input-field" required>
+        </div>
 
-            <button type="submit" class="btn">Signin</button>
-            <div>
-                <br/>
-                <a id="forgot-app-number" href="javascript:redirectToForgotAppNumber()">Forgot Application number?</a>
-                <br/>
-                <br/>
-                <a id="forgot-password" href="javascript:redirectToForgotPassword()">Forgot Password?</a>
+        <button type="submit" class="btn">Signin</button>
+        <div>
+            <br/>
+            <a id="forgot-app-number" href="javascript:redirectToForgotAppNumber()">Forgot Application number?</a>
+            <br/>
+            <br/>
+            <a id="forgot-password" href="javascript:redirectToForgotPassword()">Forgot Password?</a>
 
-                <script>
-                    var selected_program="{{program}}";
+            <script>
+                var selected_program="{{program}}";
 
-                    var forgotAppNumberUrl="{{url_for('auth.forgot_application_number')}}";
-                    var forgot_passwordUrl="{{url_for('auth.forgot_password')}}";
+                var forgotAppNumberUrl="{{url_for('auth.forgot_application_number')}}";
+                var forgot_passwordUrl="{{url_for('auth.forgot_password')}}";
 
-                    function redirectToForgotAppNumber(){
-                        window.location.href=forgotAppNumberUrl + "?program=" + selected_program;
-                    }
+                function redirectToForgotAppNumber(){
+                    window.location.href=forgotAppNumberUrl + "?program=" + selected_program;
+                }
 
-                    function redirectToForgotPassword(){
-                        window.location.href=forgot_passwordUrl + "?program=" + selected_program;
-                    }
-                </script>
-            </div>
-        </form>
-    </div>
+                function redirectToForgotPassword(){
+                    window.location.href=forgot_passwordUrl + "?program=" + selected_program;
+                }
+            </script>
+        </div>
+    </form>
+</div>
+</div>
 </div>
 {% endblock %}
-
-
-

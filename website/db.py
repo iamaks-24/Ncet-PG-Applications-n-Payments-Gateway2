@@ -16,6 +16,8 @@ page2_collection = db["page2_collection"]
 page3_collection=db["page3_collection"]
 page4_collection=db["page4_collection"]
 
+admins_collection=db["admins"]
+
 counters_collection=db['counters']
 def initialize_app_number_counter():
 

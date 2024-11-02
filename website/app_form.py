@@ -2,7 +2,7 @@ from flask import Blueprint,render_template,request,redirect,url_for,session,fla
 from xhtml2pdf import pisa
 from pymongo import MongoClient
 # from pymongo.errors import ConnectionError
-from .db import page2_collection,page1_collection,page3_collection,page4_collection
+from .db import page2_collection,page1_collection,page3_collection,page4_collection,MBA_users_collection,MCA_users_collection
 
 # pdf imports
 from reportlab.lib.pagesizes import letter
@@ -388,6 +388,44 @@ def lock_page4_for_user(application_number,page_name):
         {"$set":{"locked":True}}
     )
 
+def save_pdf_to_mongo(application_number):
+    # generate pdf from html template and save it to mongodb.
+    # fetch form data for the given application number
+    page1_data=page1_collection.find_one({'application_number':application_number})
+    page2_data=page2_collection.find_one({'application_number':application_number})
+    page3_data=page3_collection.find_one({'application_number':application_number})
+
+    # combining all data
+    entire_form_data={
+        'page1_data':page1_data,
+        'page2_data':page2_data,
+        'page3_data':page3_data
+    }
+
+    # rendering html content
+    rendered_html=render_template('preview.html',data=entire_form_data)
+
+    #create a BytesIO stream to store the pdf
+    pdf_stream=io.BytesIO() 
+
+    pisa_status=pisa.CreatePDF(io.StringIO(rendered_html),dest=pdf_stream)
+
+    if pisa_status.err:
+        raise Exception("Error generating PDF")
+    
+    # rewinding the stream n store to mongodb
+    pdf_stream.seek(0)
+    pdf_binary=pdf_stream.read()
+
+    if 'MBA' in application_number:
+        MBA_users_collection.update_one({'application_number':application_number},
+                                        {'$set':{'pdf_file':pdf_binary}})
+    elif 'MCA' in application_number:
+        MCA_users_collection.update_one({'application_number':application_number},
+                                        {'$set':{'pdf_file':pdf_binary}})
+
+
+
 @app_form.route('/page4',methods=['GET','POST'])
 def page4():
     if not session.get('progress', {}).get('page3'):
@@ -415,6 +453,10 @@ def page4():
 
                 lock_page4_for_user(application_number,'page4')
 
+                # generate the pdf and store in MONGODB
+                save_pdf_to_mongo(application_number)
+
+                flash('Application submitted and pdf generated successfully!','success')
                 return redirect(url_for('app_form.preview'))
             except Exception as e:
                 flash('Error While submitting the data, Please try again!',e)
@@ -425,6 +467,11 @@ def page4():
 @app_form.route('/preview', methods=['GET'])
 def preview():
     application_number =session.get("application_number")
+
+    if not application_number:
+        flash("Application number not found!","error")
+        return redirect(url_for('app_form.page3'))
+    
     page1_data=page1_collection.find_one({'application_number':application_number})
     page2_data=page2_collection.find_one({'application_number':application_number})
     page3_data=page3_collection.find_one({'application_number':application_number})
@@ -441,103 +488,77 @@ def preview():
 def download_pdf():
     # Get application number from form submission
     application_number = request.form.get("application_number")
+    if not application_number:
+        flash("Application number not found!","error")
+        return redirect(url_for('app_form.preview'))
     
-    # Fetch the form data for the given application number
-    page1_data = page1_collection.find_one({'application_number': application_number})
-    page2_data = page2_collection.find_one({'application_number': application_number})
-    page3_data = page3_collection.find_one({'application_number': application_number})
-
-    # Combine the data into a dictionary
-    entire_form_data = {
-        'page1_data': page1_data,
-        'page2_data': page2_data,
-        'page3_data': page3_data
-    }
-
-    # Render the HTML content for the PDF
-    rendered_html = render_template('preview.html', data=entire_form_data)
-
-    # Inject custom CSS for PDF rendering
-    pdf_css_url = url_for('static', filename='css/pdf_styles.css')
-
-    rendered_html = f"""
-    <html>
-    <head>
-        <link rel="stylesheet" href="{pdf_css_url}">
-    </head>
-    <body>
-        {rendered_html}
-    </body>
-    </html>
-    """
-
-    # Create a BytesIO stream to hold the PDF data
-    pdf_stream = io.BytesIO()
-
-    # Convert the rendered HTML to PDF
-    pisa_status = pisa.CreatePDF(io.StringIO(rendered_html), dest=pdf_stream)
-
-    # Check for PDF generation errors
-    if pisa_status.err:
-        return "Error creating PDF", 500
-
-    # Rewind the BytesIO stream
-    pdf_stream.seek(0)
-
-    # Create a response object and set the appropriate headers for PDF download
-    response = make_response(pdf_stream.read())
-    response.headers['Content-Type'] = 'application/pdf'
-    response.headers['Content-Disposition'] = f'attachment; filename=Application_{application_number}.pdf'
+    if 'MBA' in application_number:
+        mba_data=MBA_users_collection.find_one({'application_number':application_number})
+        if not mba_data  or 'pdf_file' not in mba_data :
+            flash("PDF not found for the given application number","error")
+            return redirect(url_for('app_form.preview'))
+        pdf_binary=mba_data['pdf_file']
+    
+    elif 'MCA' in application_number:
+        mca_data=MCA_users_collection.find_one({'application_number':application_number})
+        if  not mca_data  or 'pdf_file' not in mca_data:
+            flash("PDF not found for the given application number","error")
+            return redirect(url_for('app_form.preview'))
+        pdf_binary=mca_data['pdf_file']
+    
+    # create a response to download the pdf
+    response=make_response(pdf_binary)
+    response.headers['Content-Type']='application/pdf'
+    response.headers['Content-Disposition']=f'attachment; filename=Application_{application_number}.pdf'
 
     return response
+    # # Fetch the form data for the given application number
+    # page1_data = page1_collection.find_one({'application_number': application_number})
+    # # page2_data = page2_collection.find_one({'application_number': application_number})
+    # # page3_data = page3_collection.find_one({'application_number': application_number})
 
+    # # # Combine the data into a dictionary
+    # # entire_form_data = {
+    # #     'page1_data': page1_data,
+    # #     'page2_data': page2_data,
+    # #     'page3_data': page3_data
+    # # }
 
-# @app_form.route('/download_pdf', methods=['POST'])
-# def download_pdf():
-#     application_number = request.form.get('application_number')
-    
-#     # Fetch data and generate PDF as shown in your previous code
-#     page1_data = page1_collection.find_one({'application_number': application_number})
-#     page2_data = page2_collection.find_one({'application_number': application_number})
-#     page3_data = page3_collection.find_one({'application_number': application_number})
+    # # Render the HTML content for the PDF
+    # rendered_html = render_template('preview.html', data=entire_form_data)
 
-#     entire_form_data = {
-#         'page1_data': page1_data,
-#         'page2_data': page2_data,
-#         'page3_data': page3_data
-#     }
-    
-#     entire_form_data = convert_objectid_to_str(entire_form_data)
+    # # Inject custom CSS for PDF rendering
+    # pdf_css_url = url_for('static', filename='css/pdf_styles.css')
 
-#     # Create a PDF
-#     pdf_buffer = io.BytesIO()
-#     pdf = canvas.Canvas(pdf_buffer, pagesize=letter)
-#     pdf.setTitle('Form Preview')
+    # rendered_html = f"""
+    # <html>
+    # <head>
+    #     <link rel="stylesheet" href="{pdf_css_url}">
+    # </head>
+    # <body>
+    #     {rendered_html}
+    # </body>
+    # </html>
+    # """
 
-#     for page, data in entire_form_data.items():
-#         text = pdf.beginText(40, 750)  # Start position (x, y)
-#         text.setFont("Helvetica", 12)
-#         text.textLine(f"{page.capitalize()}:")
-        
-#         for key, value in data.items():
-#             text.textLine(f"{key}: {value}")
-        
-#         pdf.drawText(text)
-#         pdf.showPage()  # Move to the next page after each section
+    # # Create a BytesIO stream to hold the PDF data
+    # pdf_stream = io.BytesIO()
 
-#     pdf.save()
-#     pdf_buffer.seek(0)
+    # # Convert the rendered HTML to PDF
+    # pisa_status = pisa.CreatePDF(io.StringIO(rendered_html), dest=pdf_stream)
 
-#     return send_file(pdf_buffer, as_attachment=True, download_name='NCET-PG Application.pdf')
+    # # Check for PDF generation errors
+    # if pisa_status.err:
+    #     return "Error creating PDF", 500
 
+    # # Rewind the BytesIO stream
+    # pdf_stream.seek(0)
 
-def convert_objectid_to_str(data):
-    if isinstance(data, list):
-        return [convert_objectid_to_str(item) for item in data]
-    elif isinstance(data, dict):
-        return {key: convert_objectid_to_str(value) for key, value in data.items()}
-    elif isinstance(data, ObjectId):
-        return str(data)
-    else:
-        return data
+    # # Create a response object and set the appropriate headers for PDF download
+    # response = make_response(pdf_stream.read())
+    # response.headers['Content-Type'] = 'application/pdf'
+    # response.headers['Content-Disposition'] = f'attachment; filename=Application_{application_number}.pdf'
+
+    # return response
+
 

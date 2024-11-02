@@ -2,6 +2,10 @@
 
 {% block title %}Dashboard{% endblock %}
 
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/email_verify.css') }}">
+{% endblock %}
+
 {% block content %}
 <h1>Email Verification</h1>
 <p>An OTP has been sent to {{ email }}. Please check your email and enter the OTP below to verify your email address.</p>
@@ -12,10 +16,9 @@
     <label for="otp">Enter OTP:</label>
     <input type="text" id="otp" name="otp" required>
     <button type="submit">Verify OTP</button>
+    <form action="{{ url_for('auth.resend_otp') }}" method="post">
+        <button type="submit">Resend OTP</button>
+    </form>
 </form>
-<br/>
-<br/>
-<form action="{{ url_for('auth.resend_otp') }}" method="post">
-    <button type="submit">Resend OTP</button>
-</form>
+
 {% endblock %}

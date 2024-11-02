@@ -1,21 +1,30 @@
 {% extends 'base.html' %}
 
-{% block title %}Ncet-Registration{% endblock %}
+{% block title %}NCET Registration{% endblock %}
 
 {% block extra_css %}
-<link rel="stylesheet" href="{{url_for('static', filename='css/signup.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/signup.css') }}">
 {% endblock %}
 
 {% block content %}
-<div class="signup-container">
-    <div class="left-half">
-        <h2>Design for {{program}} program ....!</h2>
-    </div>
-    <div class="right-half">
-        <div>
-            <h2>Already registered for {{program }} program?</h2>
-            <button class="btn btn-signin" onclick="redirectToSignin()">Sign In</button>
-
+<div class="container-slide">
+    <!-- Signup Section -->
+    <div class="signup-container">
+        <div class="left-half">
+            <div class="overlay">
+                <h1 class="program-title">{{ program }}</h1>
+                <p class="program-description">
+                    Embark on your journey towards excellence and innovation with our cutting-edge programs!
+                </p>
+                <!-- <button class="btn btn-signin" onclick="redirectToSignin()">Sign In</button> -->
+            </div>
+            <div class="bubbles"></div>
+        </div>
+        <div class="right-half">
+            <div class="already-registered">
+                <span>Already registered for {{ program }} program?</span>
+                <button class="btn btn-signin" onclick="redirectToSignin()">Sign In</button>
+                
             <script>
                 var selected_program="{{program}}";
                 
@@ -26,30 +35,30 @@
                 }
                 
             </script>
-        </div>
-    <h2>Register for {{program}} Program</h2>
-    <form action="{{ url_for('auth.signup') }}" method="POST">
-        <!-- hidden input to pass the selected program -->
-        <input type="hidden" name="program" value="{{program}}">
-        <div class="form-group">
-            <label for="name">Name</label>
-            <input type="text" id="name" name="name" class="input-field" required>
-        </div>
+            </div>
 
-        <div class="form-group">
-            <label for="email">Email</label>
-            <input type="email" id="email" name="email" class="input-field" required>
-        </div>
+            <h2>Register for {{ program }} Program</h2>
+            <form action="{{ url_for('auth.signup') }}" method="POST">
+                <input type="hidden" name="program" value="{{ program }}">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" class="input-field" required>
+                </div>
 
-        <div class="form-group">
-            <label for="password">Password</label>
-            <input type="password" id="password" name="password" class="input-field" required>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" class="input-field" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" class="input-field" required>
+                </div>
+
+                <h1 class="note"><strong>Note:</strong> Upon creating your account, you will receive an application number to use for signing in.</h1>
+                <br />
+                <button type="submit" class="btn">Sign Up</button>
+            </form>
         </div>
-        <h1>Note:Upon creating your account, you will receive an application number, which you can use to sign in.</h1>
-        <br/>
-        <button type="submit" class="btn">Signup</button>
     </div>
 {% endblock %}
-
-
-

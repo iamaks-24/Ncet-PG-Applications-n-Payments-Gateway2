@@ -53,3 +53,58 @@ ul.list-group li {
 button {
     display: none;
 }
+/* pdf_styles.css */
+
+/* Body styling */
+body {
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+}
+
+/* Header styling */
+h1, h2, h3 {
+    font-family: 'Helvetica', sans-serif;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+h1 {
+    font-size: 24px;
+    text-align: center;
+}
+
+h3 {
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+/* List styling */
+ul.list-group {
+    margin: 10px 0;
+    padding: 0;
+}
+
+ul.list-group li {
+    padding: 5px 10px;
+    border: 1px solid #ddd;
+    margin-bottom: 5px;
+    list-style-type: none;
+    font-size: 12px;
+}
+
+/* Image styling */
+.img-fluid {
+    display: block;
+    margin: 0 auto;
+    max-width: 150px;
+}
+
+/* Section spacing */
+.data-section {
+    margin-bottom: 20px;
+}
+
+/* Buttons (to hide in PDF) */
+button {
+    display: none;
+}

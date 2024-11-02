@@ -1,74 +1,236 @@
-body, html {
+/* Global Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f5f5f5; /* Light background for contrast */
     margin: 0;
     padding: 0;
-    height: 100%;
-    font-family: Arial, sans-serif;
+    color: #333; /* Dark text color for readability */
 }
 
-/* Container for the whole page */
-.signup-container {
+/* Container for the entire page */
+.container-slide {
+    position: relative;
+    width: 100%;
+    height: 100vh; /* Full viewport height */
     display: flex;
-    height: 100vh;
+    overflow: hidden;
 }
 
-/* Left half for office sign-in */
+/* Signup and Signin Containers */
+.signup-container, .signin-container {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    display: flex;
+    transition: transform 1s ease;
+}
+
+/* Slide effect */
+.signup-container.slide-left {
+    transform: translateX(-100%);
+}
+
+.signin-container.hidden {
+    transform: translateX(100%);
+}
+
+/* Left Half */
 .left-half {
     width: 50%;
-    background-color: #f2f2f2;
-    padding: 50px;
-    display: flex;
+    background: linear-gradient(135deg, #c6533c 0%, #f1a7a1 100%); /* Bright contrasting colors */
+    display: flex; 
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    position: relative;
+    overflow: hidden;
 }
 
-/* Right half for general user sign-in */
+/* Right Half */
 .right-half {
-    width: 50%;
-    background: linear-gradient(to bottom right, #8A2BE2, #5F9EA0); /* Gradient background */
-    padding: 50px;
+    flex: 1;
+    background-color: #faf5ef;
     display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 50px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    margin-top: -30px; /* Adjust this value to move the form content up */
+}
+/* Overlay text on left side */
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
-    color: #ffffff;
+    text-align: center;
+    color: white;
 }
 
-.signin-container h2 {
-    margin-bottom: 20px;
+.program-title {
+    font-size: 3.5em;
+    margin-bottom: 0.5em;
+    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.8);
+    animation: titleAnimation 2s ease forwards;
 }
 
-.form-group {
-    margin-bottom: 15px;
+.program-description {
+    font-size: 1.4em;
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.8);
+    animation: descriptionAnimation 2s ease forwards;
+}
+
+@keyframes titleAnimation {
+    0% {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes descriptionAnimation {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Bubbles Animation */
+.bubbles {
+    position: absolute;
     width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    pointer-events: none;
 }
 
-.form-group label {
-    display: block;
+.bubbles::before,
+.bubbles::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2); /* Bubble color */
+    animation: bubbleAnimation 15s infinite;
+}
+
+.bubbles::before {
+    width: 100px;
+    height: 100px;
+    bottom: -50px;
+    left: 20%;
+    animation-delay: 0s;
+}
+
+.bubbles::after {
+    width: 150px;
+    height: 150px;
+    bottom: -100px;
+    right: 30%;
+    animation-delay: 3s;
+}
+
+@keyframes bubbleAnimation {
+    0% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-100vh);
+        opacity: 0;
+    }
+}
+
+/* Form and Button Styles */
+.form-group {
+    margin-bottom: 10px; /* Space between form elements */
+}
+
+label {
+    font-weight: bold;
     margin-bottom: 5px;
+    display: block;
 }
 
 .input-field {
+    width: 100%; /* Full width input */
+    padding: 8px;
+    border: 2px solid #ddd; /* Light border */
+    border-radius: 5px; /* Rounded corners */
+    transition: border-color 0.3s ease; /* Transition for focus effect */
+}
+
+.input-field:focus {
+    border-color: #ff7e5f; /* Highlight border on focus */
+    outline: none; /* Remove default outline */
+}
+
+/* Align "Already registered" text and button inline */
+.already-registered {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    margin-bottom: 20px;
 }
 
-.btn {
-    padding: 10px 20px;
-    border: none;
-    background-color: #4CAF50;
+.already-registered span {
+    font-size: 1rem;
+}
+
+.already-registered .btn-signin {
+    padding: 8px 16px;
+}
+
+/* Button Styles */
+.btn, .btn-signin, .btn-signup {
+    background: linear-gradient(135deg, #c6533c 0%, #f1a7a1 100%);  /* Gradient button */
     color: white;
-    border-radius: 4px;
+    padding: 6px 10px; /* Reduced padding */
+    border: none;
+    border-radius: 5px; /* Rounded button */
     cursor: pointer;
-    margin-top: 10px;
+    font-weight: bold;
+    transition: background 0.3s ease, transform 0.3s ease; /* Transition for hover effect */
+    width: 100px; /* Fixed width for the button */
 }
 
-.btn:hover {
-    background-color: #45a049;
+.btn:hover, .btn-signin:hover, .btn-signup:hover {
+    transform: translateY(-3px); /* Lift effect on hover */
+    background: linear-gradient(90deg, #f1a7a1, #c6533c); /* Reverse gradient on hover */
 }
 
-a {
-    color: #1e90ff;
+/* Note Style */
+h1.note {
+    font-size: 14px;
+    color: #666;
+    margin-top: 5px; /* Reduced margin */
+}
+
+/* Fade-in Animation */
+@keyframes fadeIn {
+    0% { opacity: 0; transform: translateY(-20px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+/* Right Half Sign-in Text */
+.right-half .overlay p {
+    font-size: 1.5em;
+    margin-bottom: 1.5em;
 }
